@@ -2,24 +2,30 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 // import nba from 'nba.js';
 
-
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: []
+      userInput: ''
     }
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  //onClick
-
+  handleChange(event) {
+    console.log(event.target.value)
+    this.setState({userInput: event.target.value});
+  }
   render() {
     return(
       <div>
         <div className="app">
           NBA Player Scramble
-        </div> 
-        <input type="text"/>
+        </div>
+        <label>
+          <textarea value = {this.state.userInput} onChange={this.handleChange} />
+        </label>
+        <div>sampleword</div> 
+        {/* <input type="text"/> */}
         <button type="button">Submit!</button>
         </div>
     );
