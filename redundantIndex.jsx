@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { data, stats } from 'nba.js';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -9,12 +11,17 @@ class App extends React.Component {
     }
   }
 
+  changeDisplay(e){
+    this.setState(
+        data: [];//not sure about this
+    )
+  }
 
   render() {
     return
     (
         <div className="app">
-          MVP Redux
+          NBA Player Scramble
         </div> 
     );
   }
