@@ -14,34 +14,40 @@ class App extends React.Component {
       alumniArray: []
     }
     this.handleChange = this.handleChange.bind(this);
+    this.search = this.search.bind(this);
   }
   search (term) {
-    console.log(`Unversity Search Bar: ', ${term}`);
-
+    this.state.alumniArray = [];
     for (var i = 0; i < Data.league.standard.length; i++){
       if (Data.league.standard[i]['collegeName'] === term){
         console.log(Data.league.standard[i]['firstName'] + ' ' + Data.league.standard[i]['lastName'])
-        this.state.alumniArray.push(Data.league.standard[i]['firstName'] + ' ' + Data.league.standard[i]['lastName'])
+        // this.state.alumniArray.push(Data.league.standard[i]['firstName'] + ' ' + Data.league.standard[i]['lastName'])
+        this.state.alumniArray.push(<li>{Data.league.standard[i]['firstName'] + ' ' + Data.league.standard[i]['lastName']}</li>)
       }
     }
     console.log(this.state.alumniArray)
+    this.setState({
+      alumniArray: this.state.alumniArray
+    })
   }
 
   handleChange(event) {
-    console.log('textarea', event.target.value)
+    // console.log('textarea', event.target.value)
     this.setState({collegeInput: event.target.value});
   }
 
   render() {
+    console.log('JLKJDLFKJSLKDJFLKDSJLKFJSDLKFJDS', this.state);
     return(
       <div>
         <div className="app">
-          {/* NBA Alumni Tracker */}
+          <Search onSearch={this.search.bind(this)}/>
         </div>
+        <ul>{this.state.alumniArray}</ul>
         <label>
           {/* <textarea value={this.state.collegeInput} onChange={this.handleChange} /> */}
         </label>
-        <Search onSearch={this.search.bind(this)}/>
+        
         </div>
     );
   }

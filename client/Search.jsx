@@ -6,7 +6,7 @@ class Search extends React.Component {
     super(props);
     this.state = {
       collegeInput: '',
-      alumniArray: []
+     // alumniArray: []
     }
     this.search = this.search.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -20,12 +20,12 @@ class Search extends React.Component {
   }
 
   search() {
-    console.log('searchbar', event.target.value);
+    // console.log('searchbar', event.target.value);
     this.props.onSearch(this.state.collegeInput);
   }
   
   handleChange(event) {
-    console.log('searchbar', event.target.value);
+    // console.log('searchbar', event.target.value);
     this.setState({collegeInput: event.target.value});
   }
 
@@ -34,6 +34,7 @@ class Search extends React.Component {
       <h1>NBA Alumni Tracker</h1>
       Search a university! <input value={this.state.collegeInputs} onChange={this.handleChange}/>       
       <button onClick={this.search}> Submit! </button>
+      {/* <ul>{this.state.alumniArray}</ul> */}
     </div>) 
   }
 }
