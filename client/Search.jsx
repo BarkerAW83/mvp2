@@ -1,10 +1,12 @@
 import React from 'react';
+import Data from './Data.js'
 
 class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      collegeInput: ''
+      collegeInput: '',
+      alumniArray: []
     }
     this.search = this.search.bind(this);
     this.onChange = this.onChange.bind(this);

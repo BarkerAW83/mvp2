@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/fetcher');
-import { data, stats } from 'nba.js';
+//import { data, stats } from 'nba.js';
 const request = require('request');
 const parse = require('body-parser');
 
@@ -19,7 +19,6 @@ db.once('open', function() {
 });
 
 let playerSchema = new mongoose.Schema({
-  // TODO: your schema here!
   player_id: { type: Number, unique: true },
   firstName: String,
   lastName: String,
@@ -60,7 +59,6 @@ let scrapePlayerAPI = (college, callback) => {
     url: 'http://data.nba.net/10s/prod/v1/2017/players.json'
     // headers: {
     //  'User-Agent': 'request',
-    //  'Authorization': `token ${config.TOKEN}`
     // }
   };
 
