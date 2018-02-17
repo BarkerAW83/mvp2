@@ -1,13 +1,20 @@
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/fetcher');
-
+import { data, stats } from 'nba.js';
 const request = require('request');
 const parse = require('body-parser');
+
+ var leagueRoster = nba.stats.allPlayers({ Season: '2017-18' }, (err, res) => {
+  if (err) {
+    console.error(err);
+    return;
+  }
+  console.log(res);
+});
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
-  // we're connected!
   console.log('MUTHUAPHUCKIN DB CONNECTED')
 });
 
@@ -18,15 +25,15 @@ let playerSchema = new mongoose.Schema({
   lastName: String,
   position: String,
   rookieYear: Number,
-  usedYet: { type: Boolean, default: false },
-  failure: { type: Boolean, default: false }
+  college: String,
 });
 
 let Player = mongoose.model('Player', playerSchema);
 
-let save = (body, callback) => {
-  console.log('database/index.js - Save - firing');
+let save = (body, college, callback) => {
+  console.log('Save firing');
   for (let i = 0; i < body.length; i++){
+      if (collegeName === term)
       Repo.create({ 
 
         player_id: body[i].personId,
@@ -46,25 +53,25 @@ let save = (body, callback) => {
    callback()
 }
 
-let scrapePlayerAPI = (username, callback) => {
+let scrapePlayerAPI = (college, callback) => {
 
   let options = {
     method: 'get',
-    url: 'http://data.nba.net/10s/prod/v1/2017/players.json',
-    headers: {
-     // 'User-Agent': 'request',
-     // 'Authorization': `token ${config.TOKEN}`
-    }
+    url: 'http://data.nba.net/10s/prod/v1/2017/players.json'
+    // headers: {
+    //  'User-Agent': 'request',
+    //  'Authorization': `token ${config.TOKEN}`
+    // }
   };
 
-  request(options, function (error, response, body) {
+  request(options, function (error, response, body, college) {
     parsedBody = JSON.parse(body); 
     if (error){
       console.log(error)
     }
     else{
       console.log('parsedBody:', parsedBody); 
-      db.save(parsedBody, callback);
+      db.save(parsedBody, college, callback);
     }
   });
 
@@ -72,3 +79,4 @@ let scrapePlayerAPI = (username, callback) => {
 
 module.exports.save = save;
 module.exports.db = db;
+module.exports.leagueRoster = leagueRoster;

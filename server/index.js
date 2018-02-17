@@ -12,5 +12,5 @@ console.log(__dirname);
 
 let PORT = 3000;
 app.listen(PORT, function(){
-  console.log('listening on port');
+  console.log('listening on port ', PORT);
 });
